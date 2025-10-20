@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2196F3">
+    <meta name="description" content="App de tareas con funcionamiento offline">
+
+    <title>Mi PWA - Lista de Tareas</title>
+
+    <!-- Enlace al manifiesto -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Íconos para iOS -->
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- ENCABEZADO (parte del App Shell) -->
+<header class="app-header">
+    <div class="container">
+        <h1>📝 Mi Lista de Tareas</h1>
+        <div class="connection-status" id="connectionStatus">
+            <span class="status-indicator online"></span>
+            <span class="status-text">En línea</span>
+        </div>
+    </div>
+</header>
+
+<!-- MENÚ PRINCIPAL (parte del App Shell) -->
+<nav class="app-nav">
+    <div class="container">
+        <ul>
+            <li><a href="#" class="active" data-page="tasks">📋 Tareas</a></li>
+            <li><a href="#" data-page="completed">✅ Completadas</a></li>
+            <li><a href="#" data-page="about">ℹ️ Acerca de</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- CONTENIDO DINÁMICO (esta área cambia) -->
+<main class="app-main">
+    <div class="container">
+        <!-- Vista de Tareas -->
+        <section id="tasksView" class="view active">
+            <div class="add-task-form">
+                <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Escribe una nueva tarea..."
+                        aria-label="Nueva tarea"
+                >
+                <button id="addTaskBtn" class="btn-primary">Agregar</button>
+            </div>
+
+            <div class="tasks-container">
+                <h2>Tareas Pendientes</h2>
+                <ul id="tasksList" class="tasks-list">
+                    <!-- Las tareas se cargarán dinámicamente aquí -->
+                </ul>
+                <p id="emptyState" class="empty-state">
+                    No tienes tareas pendientes. ¡Agrega una nueva!
+                </p>
+            </div>
+        </section>
+
+        <!-- Vista de Completadas -->
+        <section id="completedView" class="view">
+            <h2>Tareas Completadas</h2>
+            <ul id="completedList" class="tasks-list">
+                <!-- Tareas completadas aquí -->
+            </ul>
+            <p id="emptyCompleted" class="empty-state">
+                Aún no has completado ninguna tarea.
+            </p>
+        </section>
+
+        <!-- Vista Acerca de -->
+        <section id="aboutView" class="view">
+            <h2>Acerca de esta PWA</h2>
+            <div class="about-content">
+                <p>Esta es una Progressive Web App (PWA) de ejemplo que demuestra:</p>
+                <ul>
+                    <li>✅ App Shell Architecture</li>
+                    <li>✅ Funcionamiento sin conexión</li>
+                    <li>✅ Almacenamiento en caché con Service Worker</li>
+                    <li>✅ Contenido dinámico</li>
+                    <li>✅ Instalable en dispositivos</li>
+                </ul>
+                <p><strong>Versión:</strong> 1.0.0</p>
+                <p><strong>Desarrollado para:</strong> Práctica de Aplicaciones Web Progresivas</p>
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- PIE DE PÁGINA (parte del App Shell) -->
+<footer class="app-footer">
+    <div class="container">
+        <p>&copy; 2025 Mi PWA - Práctica de Desarrollo Web</p>
+        <p class="install-prompt" id="installPrompt" style="display: none;">
+            <button id="installBtn" class="btn-install">📲 Instalar App</button>
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/app.js"></script>
+<script>
+    // Registro del Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('Service Worker registrado con éxito:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Error al registrar Service Worker:', error);
+                });
+        });
+    }
+</script>
+</body>
+</html>

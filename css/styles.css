@@ -1,0 +1,332 @@
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2196F3;
+    --primary-dark: #1976D2;
+    --success-color: #4CAF50;
+    --danger-color: #F44336;
+    --text-color: #333;
+    --text-light: #666;
+    --bg-color: #f5f5f5;
+    --white: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-lg: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* === ENCABEZADO (App Shell) === */
+.app-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--white);
+    padding: 20px 0;
+    box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.app-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--success-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.status-indicator.offline {
+    background-color: var(--danger-color);
+    box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
+}
+
+/* === NAVEGACIÓN (App Shell) === */
+.app-nav {
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 70px;
+    z-index: 99;
+}
+
+.app-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0;
+}
+
+.app-nav li {
+    flex: 1;
+}
+
+.app-nav a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    text-align: center;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.app-nav a:hover {
+    background-color: var(--bg-color);
+}
+
+.app-nav a.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* === CONTENIDO PRINCIPAL === */
+.app-main {
+    flex: 1;
+    padding: 30px 0;
+}
+
+.view {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.view.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === FORMULARIO DE AGREGAR TAREA === */
+.add-task-form {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+#taskInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn-primary {
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* === CONTENEDOR DE TAREAS === */
+.tasks-container h2,
+#completedView h2,
+#aboutView h2 {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.tasks-list {
+    list-style: none;
+}
+
+.task-item {
+    background-color: var(--white);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.task-item:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateX(5px);
+}
+
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.task-text {
+    flex: 1;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: var(--text-light);
+}
+
+.task-delete {
+    padding: 8px 16px;
+    background-color: var(--danger-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: opacity 0.3s ease;
+}
+
+.task-delete:hover {
+    opacity: 0.9;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* === VISTA ACERCA DE === */
+.about-content {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.about-content p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+.about-content ul {
+    margin: 20px 0;
+    padding-left: 20px;
+}
+
+.about-content li {
+    margin-bottom: 10px;
+}
+
+/* === PIE DE PÁGINA (App Shell) === */
+.app-footer {
+    background-color: var(--white);
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+}
+
+.app-footer p {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    margin-bottom: 10px;
+}
+
+.btn-install {
+    padding: 10px 20px;
+    background-color: var(--success-color);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.btn-install:hover {
+    opacity: 0.9;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+    .app-header h1 {
+        font-size: 1.25rem;
+    }
+
+    .add-task-form {
+        flex-direction: column;
+    }
+
+    .app-nav a {
+        font-size: 0.875rem;
+        padding: 12px 10px;
+    }
+
+    .task-item {
+        flex-wrap: wrap;
+    }
+}
